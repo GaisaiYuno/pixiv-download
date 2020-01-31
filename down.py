@@ -18,7 +18,9 @@ def download(image,id):
     if (os.path.isdir(p)==False):
         os.mkdir(p)
     os.chdir(p)
-    if (mainland==1):
+    print("mainland"+mainland)
+    if ((int)(mainland)==1):
+        # print("poi~~~~~~~~~~~~")
         image="https://bigimg.cheerfun.dev/get/"+image
         command="aria2c "+image+" --user-agent=\""+user_agent+"\""
     else:
@@ -44,7 +46,7 @@ def make_info(data,id):
 if __name__=="__main__":
     init()
     print("Download to "+path)
-
+    print(mainland)
     while (True):
         print("Please enter pixiv id:")
         id=input()
