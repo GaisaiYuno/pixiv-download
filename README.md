@@ -12,7 +12,9 @@
 
 1.把目录里的aria2c.exe拷贝到C:\Windows目录下
 
-2.打开down.py，编辑下载目录地址
+2.编辑config.ini，chinese_mainland代表您是否处在中国大陆，download_path代表下载目录地址
+
+2.打开down.py
 
 3.输入pixiv id
 
