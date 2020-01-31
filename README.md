@@ -17,3 +17,9 @@
 3.输入pixiv id
 
 4.等待下载
+
+### 感谢
+
+api.imjad.cn 提供api服务
+
+bigimg.cheerfun.dev 提供图片下载服务
