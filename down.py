@@ -68,11 +68,6 @@ def download_with_id(path,id,rank):
         download(image,id)
     make_info(path,data,(str)(rank)+(str)(id))
 
-#p74650454
-#u49153095
-#a1023317
-#daily,weekly,monthly,rookie,original,male,female
-
 if __name__=="__main__":
     init()
     print("Download to "+picture_path)
