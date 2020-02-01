@@ -16,15 +16,18 @@
 
 3.打开down.py。
 
-4.输入pixiv id。
+4.输入id
+
+- pxxxxx 代表下载pixiv id为xxxxx的图片
+- uxxxxx 代表下载用户xxxxx的所有收藏
+- axxxxx 代表下载画师xxxxx的所有作品
+- daily,weekly,monthly,rookie,original,male,female的意义如下图![v2-9150fb8bfe4e20f78ab9dfad9e49537b_hd.jpg](https://i.loli.net/2020/02/01/uiOyq8WVZrDc9GI.jpg)
 
 5.等待下载。
 
 ### 目前存在的问题
 
 下载速度较慢而且不稳定。
-
-### 准备添加
 
 下载排行榜、作者作品以及用户收藏。
 

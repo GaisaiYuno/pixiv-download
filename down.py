@@ -46,16 +46,16 @@ def make_info(path,data,id):
         info=info+data["tags"][i]+"\n"
     output_file(info,path+"\\"+(str)(id)+"\\info.txt")
 
-def download_with_id(path,id):
+def download_with_id(path,id,rank):
     data=fetch_json("https://api.imjad.cn/pixiv/v1/?type=illust&id="+(str)(id))
     if (data["status"]!='success'):
         print("Error")
         return 
     data=data["response"][0]
-    p=path+"\\"+(str)(id)
+    p=path+"\\"+(str)(rank)+(str)(id)
     if (os.path.isdir(p)==False):
         os.mkdir(p)
-    else :
+    else:
         print("Dir exists")
         return 
     os.chdir(p)
@@ -66,7 +66,7 @@ def download_with_id(path,id):
     else :
         image=data["image_urls"]["large"]
         download(image,id)
-    make_info(path,data,id)
+    make_info(path,data,(str)(rank)+(str)(id))
 
 #p74650454
 #u49153095
@@ -82,15 +82,27 @@ if __name__=="__main__":
         if (id=='e'):
             break
         if (id[0]=='p'):
-            download_with_id(picture_path,id[1:])
+            download_with_id(picture_path,id[1:],"")
         elif (id[0]=='u'):
             data=fetch_json("https://api.imjad.cn/pixiv/v2/?type=favorite&id="+id[1:])
+            now_path=user_path+"\\"+id[1:]
+            if (os.path.isdir(now_path)==False):
+                os.mkdir(now_path)
             for i in range(0,len(data["illusts"])):
-                download_with_id(user_path,data["illusts"][i]["id"])
+                download_with_id(now_path,data["illusts"][i]["id"],"")
         elif (id[0]=='a'):
-            pass
+            data=fetch_json("https://api.imjad.cn/pixiv/v1/?type=member_illust&id="+id[1:])
+            now_path=artist_path+"\\"+id[1:]
+            if (os.path.isdir(now_path)==False):
+                os.mkdir(now_path)
+            data=data["response"]
+            for i in range(0,len(data)):
+                download_with_id(now_path,data[i]["id"],"")
         else:
             data=fetch_json("https://api.imjad.cn/pixiv/v1/?type=rank&content=illust&per_page=20&page=1&mode="+id)
             data=data["response"][0]
+            now_path=rank_path+"\\"+id+data["date"]
+            if (os.path.isdir(now_path)==False):
+                os.mkdir(now_path)
             for i in range(0,len(data["works"])):
-                download_with_id(rank_path,data["works"][i]["work"]["id"])
+                download_with_id(now_path,data["works"][i]["work"]["id"],(str)(i+1)+".")
