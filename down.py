@@ -3,6 +3,7 @@
 
 import os,requests
 import configparser
+from subprocess import call
 
 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
 
@@ -16,22 +17,24 @@ def fetch_json(url):
 def init():
     cf=configparser.ConfigParser()
     filename=cf.read("config.ini")
-    global mainland,picture_path,artist_path,rank_path,user_path
+    global mainland,picture_path,artist_path,rank_path,user_path,idm
     mainland=cf.get("pixiv","chinese_mainland")
     picture_path=cf.get("pixiv","picture_path")
     artist_path=cf.get("pixiv","artist_path")
     rank_path=cf.get("pixiv","rank_path")
     user_path=cf.get("pixiv","user_path")
+    idm=cf.get("pixiv","idm_path")
 
-def download(image,id):
+def download(path,image,id):
     if ((int)(mainland)==1):
         image="https://bigimg.cheerfun.dev/get/"+image
-        command="aria2c "+image+" --user-agent=\""+user_agent+"\""
-    else:
-        command="aria2c "+image+" --user-agent=\""+user_agent+"\""+" --referer=https://www.pixiv.net/artworks/"+id
-    print("Downloading "+image)
-    print("Command is:"+command)
-    os.system(command)
+        # command="aria2c "+image+" --user-agent=\""+user_agent+"\""
+        # command="aria2c "+image+" --user-agent=\""+user_agent+"\""+" --referer=https://www.pixiv.net/artworks/"+id
+    call([idm,'/d',image,'/p',path,'/n','/q','/a'])
+	# print("Downloading "+image)
+    # print("Command is:"+command)
+    # os.system(command)
+
 
 def output_file(info,outfile):
     fout=open(outfile,'w',encoding='utf8')
@@ -57,15 +60,14 @@ def download_with_id(path,id,rank):
         os.mkdir(p)
     else:
         print("Dir exists")
-        return 
-    os.chdir(p)
+        return
     if (data["metadata"]!=None):
         for i in range(0,len(data["metadata"]["pages"])):
             image=data["metadata"]["pages"][i]["image_urls"]["large"]
-            download(image,id)
+            download(p,image,id)
     else :
         image=data["image_urls"]["large"]
-        download(image,id)
+        download(p,image,id)
     make_info(path,data,(str)(rank)+(str)(id))
 
 if __name__=="__main__":
@@ -101,3 +103,5 @@ if __name__=="__main__":
                 os.mkdir(now_path)
             for i in range(0,len(data["works"])):
                 download_with_id(now_path,data["works"][i]["work"]["id"],(str)(i+1)+".")
+        print("Starting Queue")
+        call([idm,'/s'])
