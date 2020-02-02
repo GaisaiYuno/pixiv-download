@@ -22,7 +22,7 @@
 - uxxxxx 代表下载用户xxxxx的所有收藏，下载至user_path。
 - axxxxx 代表下载画师xxxxx的所有作品，下载至artist_path。
 - daily,weekly,monthly,rookie,original,male,female的意义如下图，下载至rank_path。
-- ![v2-9150fb8bfe4e20f78ab9dfad9e49537b_hd.jpg](https://i.loli.net/2020/02/01/uiOyq8WVZrDc9GI.jpg)
+  ![v2-9150fb8bfe4e20f78ab9dfad9e49537b_hd.jpg](https://i.loli.net/2020/02/01/uiOyq8WVZrDc9GI.jpg)
 
 5.等待下载。
 
