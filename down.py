@@ -78,6 +78,9 @@ if __name__=="__main__":
         id=input()
         if (id=='e'):
             break
+        if (id.isdigit()):
+            print("Error id")
+            continue
         if (id[0]=='p'):
             download_with_id(picture_path,id[1:],"")
         elif (id[0]=='u'):
